@@ -1,9 +1,7 @@
-import json
 import logging
 import os
 from datetime import timedelta, datetime
 
-import requests
 import json
 import pandas as pd
 from pandas.tseries.holiday import USFederalHolidayCalendar
@@ -25,7 +23,7 @@ class TranscriptHandler:
             changes = []
             percent_changes = []
 
-            for date in transcript_response:
+            for date in transcript_response["expression_count"]:
                 print(f'--> transcript date is: {date}')
 
                 next_day = datetime.strptime(date, "%Y-%m-%d") + timedelta(days=3)
@@ -76,7 +74,6 @@ def get_from_market_data(symbol: str, start_date: str, end_date: str):
 
         else:
             # Print an error message if the request was not successful
-            response_message = response.text
             print(f"---> response fail: {response.text}")
 
 
